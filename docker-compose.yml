@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  server:
+    image: ankittchauhann/samsung-test:latest
+    restart: always
+    ports:
+      - 5001:5001
+    environment:
+      - MONGO_URI=mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGO_IP}:27018/${MONGODB_DATABASE}?replicaSet=${MONGODB_REPLICASET_NAME}&authSource=admin&directConnection=true
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
+      - PORT=${NODE_PORT}
+    networks:
+      - backend
+    command: node index.js
+
+networks:
+  backend:
